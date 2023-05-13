@@ -6,7 +6,9 @@ import com.example.firstproject.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -38,5 +40,21 @@ public class ArticleController {
         //System.out.println(saved.toString());
 
         return "";
+    }
+    @GetMapping("/articles/{id}") //<---이게 url path
+    public String show(@PathVariable Long id, Model model) { //@PathVariable 뜻: url path로부터 입력된다라는 걸 의미함
+        log.info("id = "+ id);
+
+        //데이터 조회 과정
+        //1.id로 데이터를 가져옴
+        Article articeEntity=articleRepository.findById(id).orElse(null); //articleRepository가 findById로 값을 반환할때
+        //리턴타입이 Article 타입이 아니라 Optional<Article>로 반환함
+        //findById로 id를 찾았는데 값이 없으면 null을 반환, articleEntity에는 id값이 들어가거나 id값이 없으면 null이 들어감
+
+        //2.가져온 데이터(articeEntity)를 모델에 등록! ->왜? 페이지로 설정하기 위해서
+        model.addAttribute(attributeName:"article",articeEntity);
+        //3.보여줄 페이지를 설정!
+
+        return "articles/show";
     }
 }
