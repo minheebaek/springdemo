@@ -5,25 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.ToString;
 
 @AllArgsConstructor
-@ToString //toString 지우고 이거 설정
+@ToString
 public class ArticleForm {
+    private Long id; //id 필드 추가
     private String title;
     private String content;
 
-    /*
- 리팩토링 하면서 지워야 하는데 필기한거때문에 못지움
- 생성자 지우는 거 @AllArgsConstructor
-    //생성자 생성
-    public ArticleForm(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
-    //데이터가 잘 받아졌는지 확인하기 위해 toString 생성
-*/
-
-
     public Article toEntity() {
-        return new Article(null,title,content);
-        //entity Article클래스의 객체를 생성해야함(Article.java)
+        return new Article(id, title, content); //id필드 추가로 인한 toEntity()메서드의 코드 변경
     }
 }
