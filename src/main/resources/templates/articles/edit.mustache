@@ -1,0 +1,21 @@
+{{>layouts/header}}
+
+{{#article}}
+<form class="container" action="/articles/update" method="post"> <!--폼데이터를 보냄-->
+    <!--form 태그는 get과 post 메소드만 지원, patch 써야하는데 어쩔수없이 post 사용 -->
+    <!--몇번 article을 바꿀건지에 대한 정보 즉 id값을 넣음-->
+    <input name="id" type="hidden" value="{{id}}"/> <!--article의 id값을 숨겨서 던짐-->
+    <div class="mb-3">
+        <label class="form-label">제목</label>
+        <input type="text" class="form-control" name="title" value="{{title}}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">내용</label>
+        <textarea class="form-control" rows="3" name="content" >{{content}}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/articles/{{id}}">Back</a>
+</form>
+{{/article}}
+
+{{>layouts/footer}}
