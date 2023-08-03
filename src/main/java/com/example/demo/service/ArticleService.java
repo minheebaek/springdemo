@@ -30,6 +30,9 @@ public class ArticleService {
 
     public Article create(ArticleForm dto) {
         Article article=dto.toEntity();
+        if(article.getId() != null){
+            return null;
+        }
         return articleRepository.save(article); //데이터 창고에 넣으라고 시키기
     }
 
